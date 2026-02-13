@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(135deg,#ff4e8a,#6a5acd);
+  color:white;
+}
+
+/* page layout */
+.page{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+#page2{display:none;overflow:auto}
+
+/* glowing name */
+.glow{
+  font-size:32px;
+  font-weight:bold;
+  text-shadow:0 0 10px white,0 0 20px pink,0 0 40px red;
+  margin-bottom:10px;
+}
+
+/* gif */
+.top-gif{width:120px;margin-bottom:20px}
+
+/* input */
+input{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  width:200px;
+  text-align:center;
+}
+
+/* button */
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  margin-top:15px;
+  cursor:pointer;
+  font-weight:bold;
+  color:#ff4e8a;
+}
+
+/* envelope */
+.envelope{
+  width:200px;
+  height:120px;
+  background:#fff;
+  position:relative;
+  margin-top:20px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.envelope:before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:0;height:0;
+  border-left:100px solid transparent;
+  border-right:100px solid transparent;
+  border-top:60px solid #ff4e8a;
+  transition:0.5s;
+}
+.open:before{
+  transform:rotateX(180deg);
+}
+
+/* letter */
+.letter{
+  display:none;
+  margin-top:15px;
+  background:rgba(255,255,255,0.15);
+  padding:15px;
+  border-radius:12px;
+}
+
+/* typing */
+.typing{
+  min-height:60px;
+}
+
+/* fireworks hearts */
+.heart{
+  position:fixed;
+  font-size:20px;
+  animation:fly 4s linear forwards;
+}
+@keyframes fly{
+  from{transform:translateY(0);opacity:1}
+  to{transform:translateY(-100vh);opacity:0}
+}
+
+/* video */
+#videoBox{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:black;
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+#videoBox video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+</style>
+</head>
+
+<body>
+
+<!-- music -->
+<audio id="bgMusic" loop autoplay>
+  <source src="LOLOL.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🔐 PAGE 1 -->
+<div class="page" id="page1">
+  <img src="GIF-2026-02-14-01-57-55.gif" class="top-gif">
+  <div class="glow">LATTER FOR MAMA❤️</div>
+  <h3>Enter Password</h3>
+  <input type="password" id="pass">
+  <button onclick="checkPass()">Open</button>
+</div>
+
+<!-- 💌 PAGE 2 -->
+<div class="page" id="page2">
+
+  <div class="glow">I Love You MAMA ❤️</div>
+
+  <!-- envelope -->
+  <div class="envelope" onclick="openLetter()"></div>
+
+  <!-- letters -->
+  <div class="letter" id="letter1">
+    <p class="typing" id="typing1"></p>
+    <button onclick="nextLetter()">Next 💌</button>
+  </div>
+
+  <div class="letter" id="letter2">
+    <p>You are my forever, my happiness, my everything ❤️.I think tame janina what my heart says every day?
+“Meri duniya ho tum.”
+Without you, everything feels empty, like a movie without music.</p>
+    <button onclick="openVideo()">🎁 Surprise</button>
+  </div>
+
+</div>
+
+<!-- 🎥 video -->
+<div id="videoBox">
+  <video id="video" src="IMG_2302.mp4"></video>
+</div>
+
+<script>
+/* autoplay support */
+window.addEventListener("click",()=>{
+  bgMusic.play();
+},{once:true});
+
+/* password */
+function checkPass(){
+  if(pass.value==="PRAMILA"){
+    page1.style.display="none";
+    page2.style.display="flex";
+    firework();
+  }else{
+    alert("Wrong Password 😢");
+  }
+}
+
+/* fireworks hearts */
+function firework(){
+  for(let i=0;i<25;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"%";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),4000);
+  }
+}
+
+/* open envelope */
+function openLetter(){
+  document.querySelector(".envelope").classList.add("open");
+  letter1.style.display="block";
+  startTyping();
+}
+
+/* typing */
+var msg="From the day you came into my life, everything became beautiful ❤️.If loving you is waiting then..mu wait kariba ku rady achhi";
+var i=0;
+function startTyping(){
+  function t(){
+    if(i<msg.length){
+      typing1.innerHTML+=msg.charAt(i);
+      i++;
+      setTimeout(t,40);
+    }
+  }
+  t();
+}
+
+/* next letter */
+function nextLetter(){
+  letter1.style.display="none";
+  letter2.style.display="block";
+}
+
+/* open video */
+function openVideo(){
+  bgMusic.pause();
+  videoBox.style.display="flex";
+  video.play();
+
+  /* auto close */
+  video.onended=function(){
+    videoBox.style.display="none";
+    bgMusic.play();
+  }
+}
+</script>
+
+</body>
+</html>
